@@ -1,0 +1,48 @@
+<p-progressSpinner
+  *ngIf="isLoading"
+  strokeWidth="5"
+  animationDuration="5s"
+></p-progressSpinner>
+<div *ngIf="!isLoading">
+  <div class="d-flex">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="number"
+        pInputText
+        [(ngModel)]="searchId"
+        placeholder="Search by ID"
+        (ngModelChange)="getProductById()"
+      />
+    </span>
+  </div>
+  <!-- <p-button
+  label="Info"
+  [rounded]="true"
+  severity="info"
+  (onClick)="getProductById()"
+></p-button> -->
+  <p-table
+    [value]="filteredProducts || products"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="5"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Product No.</th>
+        <th>Product Name</th>
+        <th>Expiry Date</th>
+        <th>Is Available</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.expiryDate }}</td>
+        <td class="fw-bold">{{ product.isAvailable }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
